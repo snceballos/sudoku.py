@@ -1,0 +1,49 @@
+1. 1-9 in column
+2. 1-9 in row
+3. 1-9 square
+
+check if number is on column
+check if number is on row
+check if number is in square
+
+given row if x is on row move to next row if not stay there
+given column if x is on column move to next column
+
+
+create a code to have the index be 3x3, 6x3, 9x3
+bounds are 3 rows
+1-3, a-c
+4-6, a-c
+7-9, a-c
+1-3, d-f
+4-6, d-f
+
+if x is not on row, check column, check square then place value
+
+every code we have would be based off of a number 1-9
+
+for 1
+check row
+check column
+check square
+insert 1 0
+
+min value heuristic section: find row/column with the most number given already
+row with the least of 0 we check that column to see the least amount of 0 too
+find 0 value from certain spot on board
+
+heuristic: identify easiest row/column to solve
+possible: check algorithm if number is in row/column/square
+solve: then put solved number into spot
+recurse it until its solved
+
+counter for 0 
+variable to store largest amount of numbers in section
+
+find missing number from 1-9 in row a
+
+by array
+what fits in row
+then column
+then square
+finds best value 
