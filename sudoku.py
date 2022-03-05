@@ -53,27 +53,33 @@ def generateHeuristic(board):
         counter = 0
         if board[str(maxRow) + str(k)] == 0:
             for h in ROW:
-                 if board[str(h) + str(k)] != 0:
+                #print (h) 
+                if board[str(h) + str(k)] != 0:
                      counter = counter+1
-                 if counter > maxCounter:
+                if (counter > maxCounter):
                      #str(h) == str(9) and counter != 9 and
                     maxCounter = counter
                     maxColumn = k
-                    print(maxColumn)
+                    #print(maxColumn)
+                else:
+                    if str(h) == 'I' and counter == 0:
+                        maxColumn = k 
     print(maxRow,maxColumn)
+    if maxRow == "F":
+        exit() 
     return maxRow, maxColumn
 
 #checks if a number is in row/column/square and which number can fit
 def possible(row, column, numToTry):
 
-    #find if the number is in the row if it finds number, returns false
+    #finding if number is in column (itirates through rows)
     for letter in ROW:
         if board[letter + column] == numToTry:
             return False
 
-    #finds if number is in the column if it finds numberm returns false
-    for i in range(1, 10):
-        if board[str(row + str(i))] == numToTry:
+    #finding if number is in row (itirates columns)
+``    for i in range(1, 10):
+````        if board[str(row + str(i))] == numToTry:
             return False
 
     #checks if the number is in the first 3x3 square then going to the next 3x3 square
@@ -165,9 +171,11 @@ def possible(row, column, numToTry):
 #solving the box using recursion 
 def solve(board):
     maxRow,maxColumn = generateHeuristic(board)
-    for i in range(10):
+    for i in range(1,9):
         #print(maxRow, maxColumn)
-        if possible(maxRow, maxColumn, i) == True:
+        possible_output = possible(maxRow, maxColumn, i)
+        print(possible_output)
+        if possible_output == True:
             board[str(maxRow) + str(maxColumn)] = i
             break
     print_board(board)
