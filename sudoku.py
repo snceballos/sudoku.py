@@ -78,12 +78,12 @@ def possible(row, column, numToTry):
             return False
 
     #finding if number is in row (itirates columns)
-``    for i in range(1, 10):
-````        if board[str(row + str(i))] == numToTry:
+    for i in range(1, 10):
+        if board[str(row + str(i))] == numToTry:
             return False
 
     #checks if the number is in the first 3x3 square then going to the next 3x3 square
-    if ((row == "A" or row == "B" or row == "C") and (column == 1 or column == 2 or column == 3)):
+    if ((row == "A" or row == "B" or row == "C") and (column == "1" or column == "2" or column == "3")):
         box_rows = ["A", "B", "C"]
         box_cols = [1, 2, 3]
 
@@ -93,7 +93,7 @@ def possible(row, column, numToTry):
                 if board[str(r + str(c))] == numToTry:
                     return False
 
-    if ((row == "A" or row == "B" or row == "C") and (column == 4 or column == 5 or column == 6)):
+    if ((row == "A" or row == "B" or row == "C") and (column == "4" or column == "5" or column == "6")):
         box_rows = ["A", "B", "C"]
         box_cols = [4, 5, 6]
 
@@ -102,7 +102,7 @@ def possible(row, column, numToTry):
                 if board[str(r + str(c))] == numToTry:
                     return False
 
-    if ((row == "A" or row == "B" or row == "C") and (column == 7 or column == 8 or column == 9)):
+    if ((row == "A" or row == "B" or row == "C") and (column == "7" or column == "8" or column == "9")):
         box_rows = ["A", "B", "C"]
         box_cols = [7, 8, 9]
 
@@ -112,7 +112,7 @@ def possible(row, column, numToTry):
                     return False
 
 
-    if ((row == "D" or row == "E" or row == "F") and (column == 1 or column == 2 or column == 3)):
+    if ((row == "D" or row == "E" or row == "F") and (column == "1" or column == "2" or column == "3")):
         box_rows = ["D", "E", "F"]
         box_cols = [1, 2, 3]
 
@@ -121,7 +121,7 @@ def possible(row, column, numToTry):
                 if board[str(r + str(c))] == numToTry:
                     return False
 
-    if ((row == "D" or row == "E" or row == "F") and (column == 4 or column == 5 or column == 6)):
+    if ((row == "D" or row == "E" or row == "F") and (column == "4" or column == "5" or column == "6")):
         box_rows = ["D", "E", "F"]
         box_cols = [4, 5, 6]
 
@@ -130,7 +130,7 @@ def possible(row, column, numToTry):
                 if board[str(r + str(c))] == numToTry:
                     return False
 
-    if ((row == "D" or row == "E" or row == "F") and (column == 7 or column == 8 or column == 9)):
+    if ((row == "D" or row == "E" or row == "F") and (column == "7" or column == "8" or column == "9")):
         box_rows = ["D", "E", "F"]
         box_cols = [7, 8, 9]
 
@@ -139,7 +139,7 @@ def possible(row, column, numToTry):
                 if board[str(r + str(c))] == numToTry:
                     return False
 
-    if ((row == "G" or row == "H" or row == "I") and (column == 1 or column == 2 or column == 3)):
+    if ((row == "G" or row == "H" or row == "I") and (column == "1" or column == "2" or column == "3")):
         box_rows = ["G", "H", "I"]
         box_cols = [1, 2, 3]
 
@@ -148,7 +148,7 @@ def possible(row, column, numToTry):
                 if board[str(r + str(c))] == numToTry:
                     return False
 
-    if ((row == "G" or row == "H" or row == "I") and (column == 4 or column == 5 or column == 6)):
+    if ((row == "G" or row == "H" or row == "I") and (column == "4" or column == "5" or column == "6")):
         box_rows = ["G", "H", "I"]
         box_cols = [4, 5, 6]
 
@@ -157,7 +157,7 @@ def possible(row, column, numToTry):
                 if board[str(r + str(c))] == numToTry:
                     return False
 
-    if ((row == "G" or row == "H" or row == "I") and (column == 7 or column == 8 or column == 9)):
+    if ((row == "G" or row == "H" or row == "I") and (column == "7" or column == "8" or column == "9")):
         box_rows = ["G", "H", "I"]
         box_cols = [7, 8, 9]
 
@@ -171,13 +171,16 @@ def possible(row, column, numToTry):
 #solving the box using recursion 
 def solve(board):
     maxRow,maxColumn = generateHeuristic(board)
-    for i in range(1,9):
+    for i in range(1,10):
         #print(maxRow, maxColumn)
         possible_output = possible(maxRow, maxColumn, i)
         print(possible_output)
         if possible_output == True:
             board[str(maxRow) + str(maxColumn)] = i
             break
+        else:
+            if i == "9" and possible_output == False:
+                backtracking(board)
     print_board(board)
     for i in ROW:
         for j in COL:
