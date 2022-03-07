@@ -39,8 +39,13 @@ def generateHeuristic(board):
         for j in COL:
             if board[str(i)+str(j)] != 0:
                 counter = counter+1
+            # else:
+            #     if (counter > maxCounter):
+            #          #str(h) == str(9) and counter != 9 and
+            #         maxCounter = counter
+            #         maxRow = i    
             #print(j,counter)
-            if str(j) == str(9) and counter != 9 and counter > maxCounter:
+            if str(j) == str(9) and counter != 9 and counter >= maxCounter:
                 maxCounter = counter
                 maxRow = i 
             
@@ -64,9 +69,9 @@ def generateHeuristic(board):
                 else:
                     if str(h) == 'I' and counter == 0:
                         maxColumn = k 
-    print(maxRow,maxColumn)
-    if maxRow == "F":
-        exit() 
+    #print(maxRow,maxColumn)
+    # if maxRow == "F":
+    #     exit() 
     return maxRow, maxColumn
 
 #checks if a number is in row/column/square and which number can fit
@@ -170,26 +175,43 @@ def possible(row, column, numToTry):
    
 #solving the box using recursion 
 def solve(board):
+    counter = 0
+    for i in ROW:
+        for j in COL:
+            if board[str(i)+str(j)] == 0:
+                counter = counter+1
+                break
+    if counter == 0:
+        return True
+
     maxRow,maxColumn = generateHeuristic(board)
+
     for i in range(1,10):
         #print(maxRow, maxColumn)
         possible_output = possible(maxRow, maxColumn, i)
-        print(possible_output)
+        #print(possible_output)
         if possible_output == True:
             board[str(maxRow) + str(maxColumn)] = i
-            break
-        else:
-            if i == "9" and possible_output == False:
-                backtracking(board)
-    print_board(board)
-    for i in ROW:
-        for j in COL:
-            if board[str(i)+str(j)] != 0:
+            #print_board(board)
+            if solve(board) == True:
                 return True
-                #board is solved
-            else:
-                 solve(board) 
-                 #if not solved moves back to solve to look for solution      
+            board[str(maxRow) + str(maxColumn)] = 0
+            #break
+        else:
+            board[str(maxRow) + str(maxColumn)] = 0
+            if i == 9:
+                #print("backtrack")
+                return False    
+                
+    
+    # for i in ROW:
+    #     for j in COL:
+    #         if board[str(i)+str(j)] != 0:
+    #             return True
+    #             #board is solved
+    #         else:
+    #              solve(board) 
+    #              #if not solved moves back to solve to look for solution      
 
 def backtracking(board):
     """Takes a board and returns solved board."""
@@ -202,6 +224,7 @@ def backtracking(board):
 if __name__ == '__main__':
     #  Read boards from source.
     src_filename = 'sudoku_boards.txt'
+    #sudoku_boards.txt
     try:
         srcfile = open(src_filename, "r")
         sudoku_list = srcfile.read()
